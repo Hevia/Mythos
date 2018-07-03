@@ -1,6 +1,6 @@
 from random import randint, randrange
 
-def genName():
+def gen_name():
     name = ""
     words = ["que", "way", "eel", "ruu", "tish", "yar", "uub", "iek", "oy", "pe", "ah", "sha", "dor", "feek", "goo", "moo", "rabi", "doku", "baca", "szum", "lan", "ski", "-", "-"]
     rando = randrange(0, (len(words)-1))
@@ -10,8 +10,16 @@ def genName():
         
     return name
 
+def splitty(f):
+    data = f.read()
+    splitty = data.split("\n")
+    return_list = []
+    for i in splitty:
+        return_list.append(i)
+    return return_list
 
-def genPower(powers, actions):
+
+def gen_power(powers, actions):
     power = ""
     randoP = randrange(0, (len(powers)-1))
     randoA = randrange(0, (len(actions)-1))
@@ -21,7 +29,7 @@ def genPower(powers, actions):
 
     return power   
 
-def genBeing():
+def gen_being():
     being = ""
     attributes = ["giant", "huge", "tiny", ""]
     beings = ["god", "goddess", "centaur", "giant", "hero", "herorine", "elf", "fairy", "sphinx", "wyvern", "dragon", "cerberus", "minotaur", "chimera"]

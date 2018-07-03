@@ -3,60 +3,26 @@ from scriptos import *
 
 #Imports .txt files for the nouns and adjectives to determine god hood and stuff
 f = open("allNouns.txt", 'r')
-data = f.read()
-splitty = data.split("\n")
-nouns = []
-for i in splitty:
-    nouns.append(i)
-
-data = None
-splitty = []
+nouns = splitty(f)
 
 f = open("allAdj.txt", 'r')
-data = f.read()
-splitty = data.split("\n")
-adj = []
-for i in splitty:
-    adj.append(i)
-
-data = None
-splitty = []
+adj = splitty(f)
 
 f = open("allPowers.txt", 'r')
-data = f.read()
-splitty = data.split("\n")
-powers = []
-for i in splitty:
-    powers.append(i)
-
-data = None
-splitty = []
+powers = splitty(f)
 
 f = open("allActions.txt", 'r')
-data = f.read()
-splitty = data.split("\n")
-actions = []
-for i in splitty:
-    actions.append(i)
+actions = splitty(f)
 
 
-
-
-
-
+#Generates and prints the gods
 pantheon = []
 for i in range(5):
-    randName = genName()
-    randNoun = randrange(0, (len(nouns)-1))
-    randAdj = randrange(0, (len(adj)-1))
-    randAge = randrange(0, 5999)
-    #gender = genBeing()
-    randPower = genPower(powers, actions)
+    rand_noun = randrange(0, (len(nouns)-1))
+    rand_adj = randrange(0, (len(adj)-1))
+    rand_power = gen_power(powers, actions)
     
-    pantheon.append(Character(genName(), genBeing(), randrange(0, 5999), nouns[randNoun], adj[randAdj], randPower))
+    pantheon.append(Character(gen_name(), gen_being(), randrange(0, 5999), nouns[rand_noun], adj[rand_adj], rand_power))
 
 for i in pantheon:
     i.printGod()
-
-
-#(self, name, being, age, kind, adj, power):
