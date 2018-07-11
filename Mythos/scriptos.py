@@ -1,4 +1,4 @@
-from random import randint, randrange
+from random import *
 
 def gen_name():
     name = ""
@@ -10,7 +10,8 @@ def gen_name():
         
     return name
 
-def splitty(f):
+def file_open(file_name):
+    f = open(file_name, 'r')
     data = f.read()
     splitty = data.split("\n")
     return_list = []
@@ -19,15 +20,12 @@ def splitty(f):
     return return_list
 
 
-def gen_power(powers, actions):
-    power = ""
-    randoP = randrange(0, (len(powers)-1))
-    randoA = randrange(0, (len(actions)-1))
-    power += actions[randoA]
-    power += " "
-    power += powers[randoP]
+def gen_power():
+    powers = file_open("allPowers.txt")
+    actions = file_open("allActions.txt")
+    the_power = choice(actions) + " " + choice(powers)
 
-    return power   
+    return the_power   
 
 def gen_being():
     being = ""
