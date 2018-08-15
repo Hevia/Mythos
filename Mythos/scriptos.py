@@ -1,15 +1,5 @@
 from random import *
 
-def gen_name():
-    name = ""
-    words = ["que", "way", "eel", "ruu", "tish", "yar", "uub", "iek", "oy", "pe", "ah", "sha", "dor", "feek", "goo", "moo", "rabi", "doku", "baca", "szum", "lan", "ski", "-", "-"]
-    rando = randrange(0, (len(words)-1))
-    for i in range(randrange(2, 3)):
-        rando = randrange(0, (len(words)-1))
-        name += words[rando]
-        
-    return name
-
 def file_open(file_name):
     f = open(file_name, 'r')
     data = f.read()
@@ -20,6 +10,41 @@ def file_open(file_name):
     return return_list
 
 
+timeline = []
+adj = file_open("allAdj.txt")
+
+
+def creation_myth():
+    rand = randrange(0, 1)
+    birth_nouns = ["hatched", "birthed", "constructed"]
+    birth_objects = ["Egg", "Ball", "Skeleton"]
+    origin_templates = ["Time began when our universe was", "The universe as know it was", "In nothingness our world was"]
+
+    birth_obj = ""
+    birth_obj = choice(adj) + ' '  + choice(birth_objects)
+
+    if rand == 0: 
+        birth_method = choice(birth_nouns)
+        origin_method = choice(origin_templates)
+
+        timeline.append(f"{origin_method} {birth_method} from a {birth_obj}")
+    else:
+        birth_method = choice(birth_nouns)
+        origin_method = choice(origin_templates)
+
+        timeline.append(f"{origin_method} {birth_method} from a {birth_obj}")
+
+
+
+
+def gen_name():
+    name = ""
+    words = ["que", "way", "eel", "ruu", "tish", "yar", "uub", "iek", "oy", "pe", "ah", "sha", "dor", "feek", "goo", "moo", "rabi", "doku", "baca", "szum", "lan", "ski", "-", "-"]
+    for i in range(randrange(2, 3)):
+        name += choice(words)
+        
+    return name
+
 def gen_power():
     powers = file_open("allPowers.txt")
     actions = file_open("allActions.txt")
@@ -29,12 +54,9 @@ def gen_power():
 
 def gen_being():
     being = ""
-    attributes = ["giant", "huge", "tiny", ""]
-    beings = ["god", "goddess", "centaur", "giant", "hero", "herorine", "elf", "fairy", "sphinx", "wyvern", "dragon", "cerberus", "minotaur", "chimera"]
-    rando = randrange(0, len(beings)-1)
-    randoA = randrange(0, len(attributes)-1)
-
-    being += " " + beings[rando]
+    attributes = ["giant", "huge", "tiny", "", "meek", "strong"]
+    beings = ["god", "goddess"]
+    being = choice(attributes) + " " + choice(beings)
     return being
 
 
@@ -71,35 +93,3 @@ class Character:
                 print(" | ", end="")
             print(child.name)
             child.printFamilyTree(depth + 1)
-
-# class Religion:
-#     def __init__(self, name, age, kind):
-#         self.gods = {}
-#         self.age = age
-#         self.name = name
-#         self.kind = kind
-#         self.supreme = None
-
-#     def addGod(self, name, age, kind, adj, power, worship, parents=None):
-#         self.gods[name] = God(name, age, kind, adj, power, worship)
-
-#         if parents is None:
-#             self.supreme = self.gods[name]
-#         else:
-#             for parent in parents:
-#                 try:
-#                     self.gods[parent].setChild(self.gods[name])
-#                 except KeyError:
-#                     print("Parents don't exist")
-
-#     def getGod(self, name):
-#         try:
-#             return self.gods[name]
-#         except KeyError:
-#             return None
-
-#     def printHeirarchy(self):
-#         print("The Heirarchy of {0}".format(self.name))
-
-#         print(self.supreme.name)
-#         self.supreme.printFamilyTree(1)
