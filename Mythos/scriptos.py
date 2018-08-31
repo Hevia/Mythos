@@ -2,37 +2,44 @@ from random import *
 
 def file_open(file_name):
     f = open(file_name, 'r')
-    data = f.read()
-    splitty = data.split("\n")
+    data = f.read().split("\n")
     return_list = []
-    for i in splitty:
+    for i in data:
         return_list.append(i)
     return return_list
 
 
-timeline = []
-adj = file_open("allAdj.txt")
+
+adj = file_open("data/allAdj.txt")
 
 
 def creation_myth():
-    rand = randrange(0, 1)
-    birth_nouns = ["hatched", "birthed", "constructed"]
-    birth_objects = ["Egg", "Ball", "Skeleton"]
-    origin_templates = ["Time began when our universe was", "The universe as know it was", "In nothingness our world was"]
-
+    #0 - for egg origin
+    #1 - for ex nihilo (God created the world out of nothing)
+    #2 - Creation from chaos(expanse, void, abyss, disorder, primordial substance)
+    #3 - World parent gods (Gods mating)
+    #4 - World parent from a single god (The gods corpse or body gives life to the world)
+    timeline = []
+    rand = randrange(0, 4) 
+    egg_birth_nouns = ["hatched", "birthed", "constructed"]
+    egg_birth_objects = ["Egg", "Ball", "Skeleton"]
+    egg_origin_templates = ["Time began when our universe was", "The universe as know it was", "In nothingness our world was"]
     birth_obj = ""
-    birth_obj = choice(adj) + ' '  + choice(birth_objects)
 
     if rand == 0: 
-        birth_method = choice(birth_nouns)
-        origin_method = choice(origin_templates)
-
+        birth_method = choice(egg_birth_nouns)
+        origin_method = choice(egg_origin_templates)
+        birth_obj = choice(adj) + ' '  + choice(egg_birth_objects)
         timeline.append(f"{origin_method} {birth_method} from a {birth_obj}")
-    else:
-        birth_method = choice(birth_nouns)
-        origin_method = choice(origin_templates)
 
+    elif rand == 1:
+        birth_method = choice(egg_birth_nouns)
+        origin_method = choice(egg_origin_templates)
+        birth_obj = "Empty"
         timeline.append(f"{origin_method} {birth_method} from a {birth_obj}")
+
+
+    return timeline
 
 
 
@@ -46,8 +53,8 @@ def gen_name():
     return name
 
 def gen_power():
-    powers = file_open("allPowers.txt")
-    actions = file_open("allActions.txt")
+    powers = file_open("data/allPowers.txt")
+    actions = file_open("data/allActions.txt")
     the_power = choice(actions) + " " + choice(powers)
 
     return the_power   
