@@ -1,5 +1,7 @@
 This is a file where I am stockpiling all the resources I used for research. I hope this proves helpful for others wanting to pursue a similar project!
 
+Rougelikes and games have done a lot to advance procedural narrative generation so that is why you'll see so many game centric resources
+
 
 # Books
 
@@ -16,6 +18,8 @@ AI Content Generation: https://www.gdcvault.com/play/1024146/PCG-Shotgun-6-Techn
 Designing a procedurally generated game: https://www.youtube.com/watch?v=S9pc8li4fuQ
 
 Practices in procedural generation: https://www.youtube.com/watch?v=49b7fUI7AEI
+
+Narrative Legos: https://www.gdcvault.com/play/1020434/Narrative
 
 
 # Papers
