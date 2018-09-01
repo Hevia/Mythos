@@ -19,6 +19,7 @@ Practices in procedural generation: https://www.youtube.com/watch?v=49b7fUI7AEI
 Generation of Mythic Biographies: http://www.freeholdgames.com/papers/Generation_of_mythic_biographies_in_Cavesofqud.pdf
 
 
-#Inspiration
+# Inspiration
+
 https://mkremins.itch.io/epitaph
 
