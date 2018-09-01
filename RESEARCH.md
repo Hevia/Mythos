@@ -34,3 +34,5 @@ https://mkremins.itch.io/epitaph
 https://emshort.blog/category/procedural-narrative/
 
 http://dwarffortresswiki.org/index.php/DF2014:Personality_trait
+
+https://www.reddit.com/r/gamedesign/comments/835jhz/the_easy_guide_to_procedurally_generated_plots/
