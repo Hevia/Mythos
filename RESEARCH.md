@@ -27,3 +27,5 @@ Generation of Mythic Biographies: http://www.freeholdgames.com/papers/Generation
 
 https://mkremins.itch.io/epitaph
 
+https://emshort.blog/category/procedural-narrative/
+
