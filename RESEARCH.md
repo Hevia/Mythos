@@ -33,3 +33,4 @@ https://mkremins.itch.io/epitaph
 
 https://emshort.blog/category/procedural-narrative/
 
+http://dwarffortresswiki.org/index.php/DF2014:Personality_trait
