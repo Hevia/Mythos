@@ -11,6 +11,8 @@ Morphology Of Folklore by V. Propp
 
 # Talks
 
+Best practices in procedural narrative generation: https://www.youtube.com/watch?time_continue=1&v=k2rgzZ2WXKo
+
 Procedurally Generating History in Caves of Qud: https://www.youtube.com/watch?v=H0sLa1y3BW4
 
 AI Content Generation: https://www.gdcvault.com/play/1024146/PCG-Shotgun-6-Techniques-for
