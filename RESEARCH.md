@@ -28,6 +28,8 @@ Narrative Legos: https://www.gdcvault.com/play/1020434/Narrative
 
 Generation of Mythic Biographies: http://www.freeholdgames.com/papers/Generation_of_mythic_biographies_in_Cavesofqud.pdf
 
+Story Generator Algorithims: http://wikis.sub.uni-hamburg.de/lhn/index.php/Story_Generator_Algorithms
+
 
 # Inspiration
 
