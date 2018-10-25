@@ -1,15 +1,18 @@
 import random as rd
 from scriptos import *
 
-# 
+
 rules = {
+    # Our world creation rules
     "S":[ 
-        ["The", "World", "began","when", "the", "NU", "V", "from", "a", "B"] 
+        ["The", "World", "began","when", "NU", "V", "from", "a", "B"], # for egg origin 
+        ["Legend", "has", "it", "that", "N", "and", "N2", "gave", "rise", "to", "our", "world"], # World parent gods (Gods mating)
+        ["From", "the", "CH", "gave", "rise", "to", "N", "who", "created", "our", "world"], # Creation from chaos(expanse, void, abyss, disorder, primordial substance)
+        ["From", "the", "BO", "of", "N", "V", "our", "world"] # Creation from a single parent
     ], 
     "NU":[ 
-        ["Adj","N"],
-        ["Adj","N"],
-        ["Adj","N"]
+        ["N"],
+        ["the","Adj","N"]
     ],
     "V":[ 
         ["hatched"],
@@ -17,13 +20,25 @@ rules = {
         ["crawled"]
     ],
     "Adj": [
-        ["Giant"],
-        ["Great"],
-        ["Beautiul"]
+        ["giant"],
+        ["great"],
+        ["beautiul"]
     ],
     "B": [
         ["egg"],
         ["crack in the void"]
+    ],
+    "BO":[
+        ["forehead"],
+        ["arm"],
+        ["tail"],
+        ["stomach"]
+    ],
+
+    # Our hero story genereation rules
+    "HS":
+    [
+        [""]
     ]
 }
 
@@ -52,16 +67,23 @@ def expansion(start):
     
     return result
 
+def expand_agents(start, agent, agent_name):
+    for element in start:
+        if element == agent:
+            loc = start.index(element)
+            start[loc] = agent_name
+        result = [item for item in generate_items(start)]
+
+    return result
+
+
 
 def to_string(result):
     return ' '.join(result)
 
 
-# An example test you can run to see it at work
-result = ["S"]
-print(result) # Print our starting result
-result = expansion(result) # Expand our starting list 
-final = to_string(result)
-print(final) # Print the final result
+class Primordial:
+    def __init__(self):
+        self.name = rd.choice(["chaos", "void", "stardust"])
 
     

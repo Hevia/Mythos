@@ -1,0 +1,9 @@
+{
+    "Climate": "Test",
+    "High_Temp": 99,
+    "Low_Temp": 77,
+    "Wind": 0,
+    "Rainfall": 0,
+    "Humditiy": 0,
+    "Snowfall":0
+}

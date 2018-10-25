@@ -1,4 +1,5 @@
 import random as rd
+from Grammars import *
 
 # Used to split .txt elements on a new line and append to a list
 def file_open(file_name):
@@ -10,16 +11,36 @@ def file_open(file_name):
     return return_list
 
 adj = file_open("data/characters/adjectives.txt")
+nouns = file_open("data/characters/nouns.txt")
 
 
 def gen_region():
     climates = file_open("data/world/climates.txt")
 
+
+def creation_myth(god_one, god_two, origin_entity):
+    timeline = ["S"]
+    timeline = expansion(timeline)
+
+    timeline = expand_agents(timeline, "N", god_one)
+    timeline = expand_agents(timeline, "N2", god_two)
+    timeline = expand_agents(timeline, "CH", origin_entity)
+
+    timeline = to_string(timeline)
+    return timeline
+
+
 def gen_society():
     cultures = file_open("data/world/cultures.txt")
     society = {}
+
+    god_one = gen_name()
+    god_two = gen_name()
+    origin_entity = Primordial()
+
     society['name'] = gen_name()
     society['culture'] = rd.choice(cultures)
+    society['Creation Myth'] = creation_myth(god_one, god_two, origin_entity.name)
 
     return society
 
@@ -37,61 +58,16 @@ def hero_story(pantheon, society):
     hero.hates = villan_god.name
     hero.loves = worshipped_god.name
 
-    
-
     return hero
-
-
-
-
-
-
-
-def creation_myth():
-    #0 - for egg origin
-    #1 - for ex nihilo (God created the world out of nothing)
-    #2 - Creation from chaos(expanse, void, abyss, disorder, primordial substance)
-    #3 - World parent gods (Gods mating)
-    #4 - World parent from a single god (The gods corpse or body gives life to the world)
-    timeline = ""
-    rand = rd.randrange(0, 4) 
-    egg_birth_nouns = ["hatched", "birthed", "constructed"]
-    egg_birth_objects = ["Egg", "Ball", "Skeleton"]
-    egg_origin_templates = ["Time began when our universe was", "The universe as we know it was", "In nothingness our world was"]
-    birth_obj = ""
-
-    if rand == 0: 
-        birth_method = rd.choice(egg_birth_nouns)
-        origin_method = rd.choice(egg_origin_templates)
-        birth_obj = rd.choice(adj) + ' '  + rd.choice(egg_birth_objects)
-        timeline += (f"{origin_method} {birth_method} from a {birth_obj}")
-
-    elif rand == 1:
-        birth_method = rd.choice(egg_birth_nouns)
-        origin_method = rd.choice(egg_origin_templates)
-        birth_obj = "Empty"
-        timeline += (f"{origin_method} {birth_method} from a {birth_obj}")
-
-
-    return timeline
-
-
 
 
 def gen_name():
     name = ""
-    words = ["que", "way", "eel", "ruu", "tish", "yar", "uub", "iek", "oy", "pe", "ah", "sha", "dor", "feek", "goo", "moo", "rabi", "doku", "baca", "szum", "lan", "ski", "-", "-"]
-    for i in range(rd.randrange(2, 3)):
+    words = file_open("data/characters/names.txt")
+    for i in range(rd.randrange(2, 4)):
         name += rd.choice(words)
         
     return name
-
-def gen_power():
-    powers = file_open("data/characters/powers.txt")
-    actions = file_open("data/characters/actions.txt")
-    the_power = rd.choice(actions) + " " + rd.choice(powers)
-
-    return the_power   
 
 def gen_being():
     being = ""
@@ -100,16 +76,23 @@ def gen_being():
     being = rd.choice(attributes) + " " + rd.choice(beings)
     return being
 
+def gen_power():
+        powers = file_open("data/characters/powers.txt")
+        actions = file_open("data/characters/actions.txt")
+        the_power = rd.choice(actions) + " " + rd.choice(powers)
+        return the_power   
+
+class Society:
+
 
 
 class Character:
-    def __init__(self, name, gender, age, kind, adj, power):
-        self.name = name
-        self.age = age
-        self.gender = gender 
-        self.kind = kind
-        self.adj = adj
-        self.power = power
+    def __init__(self):
+        self.name = gen_name()
+        self.gender = rd.choice(["god", "goddess"])
+        self.adj = rd.choice(adj)
+        self.kind = rd.choice(nouns)
+        self.power = gen_power()
         self.hates = []
         self.loves = []
         self.children = []
@@ -131,11 +114,13 @@ class Character:
                 print(" | ", end="")
             print(child.name)
             child.printFamilyTree(depth + 1)
+    
+    
 
 
 class God(Character): 
     def printGod(self):
-        print(self.name, "the", self.adj, self.age, "year old", self.gender, "of", self.kind, "has the power to", self.power)
+        print(self.name, "the", self.adj, self.gender,  "has the power to", self.power)
 
 class Hero(Character):
     def __init__(self, name, gender, adj):
