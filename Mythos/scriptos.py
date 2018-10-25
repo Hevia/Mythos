@@ -82,10 +82,6 @@ def gen_power():
         the_power = rd.choice(actions) + " " + rd.choice(powers)
         return the_power   
 
-class Society:
-
-
-
 class Character:
     def __init__(self):
         self.name = gen_name()
