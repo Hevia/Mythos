@@ -1,6 +1,9 @@
 import random as rd
 from Grammars import *
 
+
+
+
 # Used to split .txt elements on a new line and append to a list
 def file_open(file_name):
     f = open(file_name, 'r')
@@ -29,20 +32,23 @@ def creation_myth(god_one, god_two, origin_entity):
     timeline = to_string(timeline)
     return timeline
 
-
+# Our temporary generate society function
 def gen_society():
     cultures = file_open("data/world/cultures.txt")
     society = {}
-
     god_one = gen_name()
     god_two = gen_name()
     origin_entity = Primordial()
-
     society['name'] = gen_name()
     society['culture'] = rd.choice(cultures)
     society['Creation Myth'] = creation_myth(god_one, god_two, origin_entity.name)
-
     return society
+
+def gen_culture():
+    cultures = file_open("data/world/cultures.txt")
+    culture = rd.choice(cultures)
+    return culture
+
 
 
 def hero_story(pantheon, society):
@@ -82,6 +88,9 @@ def gen_power():
         the_power = rd.choice(actions) + " " + rd.choice(powers)
         return the_power   
 
+
+
+
 class Character:
     def __init__(self):
         self.name = gen_name()
@@ -112,8 +121,6 @@ class Character:
             child.printFamilyTree(depth + 1)
     
     
-
-
 class God(Character): 
     def printGod(self):
         print(self.name, "the", self.adj, self.gender,  "has the power to", self.power)
@@ -133,3 +140,26 @@ class Hero(Character):
     
     def print_myth(self):
         print(self.name + " The mighty hero of " + self.society + " bested " +self.hates + " with help from " + self.loves) 
+
+
+
+class Society:
+    def gen_pantheon(self, gods):
+        for i in gods:
+            new_god = God()
+            new_god.kind = i
+            self.pantheon.append(new_god)
+
+    def __init__(self):
+        self.name = gen_name()
+        self.home = gen_name()
+        self.culture = gen_culture()
+        self.required_gods = ["Sun", "Moon", "Earth", "Ocean"]
+        self.required_holidays = ["sacrifical", "feast", "celebratory"]
+        self.pantheon = gen_pantheon(required_gods)
+        self.creation_myth = None
+        self.holidays = None
+    
+    def print_society(self):
+        print("The " + self.culture + " " + self.name + " people of " self.home)
+        print("")
