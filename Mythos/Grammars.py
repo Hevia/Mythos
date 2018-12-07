@@ -67,6 +67,7 @@ def expansion(start):
     
     return result
 
+
 def expand_agents(start, agent, agent_name):
     for element in start:
         if element == agent:

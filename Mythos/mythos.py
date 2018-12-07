@@ -8,12 +8,15 @@ def main():
     
     adj = file_open("data/characters/adjectives.txt")
     pantheon = []
-    society = {}
+    society = None
+    society = gen_society()
     user_input = ""
+    test = ""
+    test_gods = ["Sun", "Moon", "Earth", "Ocean"]
 
     print("Welcome to Mythos! Mythology generation at your fingertips!")
     print("[g] - generate gods,  [s] - society")
-    print("[h] - hero story, , [e] - exit")
+    print("[h] - troubleshooting, , [e] - exit")
 
     user_input = input("Enter in a command to get started: ")
 
@@ -29,11 +32,11 @@ def main():
 
         elif user_input == 's':
             society = gen_society()
-            print(society)
+            society.print_society()
 
         elif user_input == 'h':
-            hero = hero_story(pantheon, society)
-            hero.print_myth()
+            test = gen_homeland()
+            print(test)
 
 
         user_input = input("Enter another input: ")

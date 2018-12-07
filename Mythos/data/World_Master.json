@@ -1,0 +1,22 @@
+{
+    "Ecosystems": [
+        {
+            "name": "Woodlands",
+            "Required_Gods": ["Forest", "Sun", "Moon", "Water", "Thunder"],
+            "Required_Holidays": ["Festival of the dead", ""]
+        },
+        {
+            "name":"Swamplands",
+            "Required_Gods": ["Gators", "Marsh", "Tides", "Mangroves"],
+            "Required_Holidays": []
+        },
+        {
+            "name": "Mountains",
+            "Required_Gods":["Snow", "Earthquake", "Sun", "Wind"],
+            "Required_Holidays": []
+        }
+    ]
+    
+
+    
+}

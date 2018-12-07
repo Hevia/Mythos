@@ -1,0 +1,8 @@
+dragon
+hydra
+centaur
+chimera
+cyclops
+gorgons
+griffin
+minotaur

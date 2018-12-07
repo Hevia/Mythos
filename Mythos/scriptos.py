@@ -1,8 +1,6 @@
 import random as rd
+import json
 from Grammars import *
-
-
-
 
 # Used to split .txt elements on a new line and append to a list
 def file_open(file_name):
@@ -13,12 +11,35 @@ def file_open(file_name):
         return_list.append(i)
     return return_list
 
+# Used during the generation process
 adj = file_open("data/characters/adjectives.txt")
 nouns = file_open("data/characters/nouns.txt")
+creatures = file_open("data/creatures.txt")
 
+def gen_creatures():
+    creatures_list = []
+    name = ""
 
-def gen_region():
-    climates = file_open("data/world/climates.txt")
+    for i in range(rd.randrange(3, 6)):
+        name += rd.choice(adj)
+        name += " "
+        name += rd.choice(creatures)
+        creatures_list.append(name)
+        name = ""
+    
+    return creatures_list
+
+def gen_society():
+    with open('data/World_Master.json') as data_file:
+        world_master = json.load(data_file)
+
+    # This is what we will use to populate data for our society
+    data = rd.choice(world_master['Ecosystems'])
+    creatures = gen_creatures()
+    
+    new_society = Society(data, creatures)
+    new_society.pantheon = gen_pantheon(new_society.pantheon, new_society.required_gods)
+    return new_society
 
 
 def creation_myth(god_one, god_two, origin_entity):
@@ -32,17 +53,6 @@ def creation_myth(god_one, god_two, origin_entity):
     timeline = to_string(timeline)
     return timeline
 
-# Our temporary generate society function
-def gen_society():
-    cultures = file_open("data/world/cultures.txt")
-    society = {}
-    god_one = gen_name()
-    god_two = gen_name()
-    origin_entity = Primordial()
-    society['name'] = gen_name()
-    society['culture'] = rd.choice(cultures)
-    society['Creation Myth'] = creation_myth(god_one, god_two, origin_entity.name)
-    return society
 
 def gen_culture():
     cultures = file_open("data/world/cultures.txt")
@@ -70,10 +80,30 @@ def hero_story(pantheon, society):
 def gen_name():
     name = ""
     words = file_open("data/characters/names.txt")
-    for i in range(rd.randrange(2, 4)):
+    for i in range(rd.randrange(2, 3)):
         name += rd.choice(words)
-        
     return name
+
+
+def gen_region():
+    climates = file_open("data/world/climates.txt")
+    region = ""
+    region += rd.choice(climates)
+    region += " "
+    words = file_open("data/characters/names.txt")
+    for i in range(rd.randrange(2, 3)):
+        region += rd.choice(words)
+    return region
+
+
+def gen_homeland():
+    region = ""
+    words = file_open("data/characters/names.txt")
+    for i in range(rd.randrange(2, 3)):
+        region += rd.choice(words)
+    return region
+
+
 
 def gen_being():
     being = ""
@@ -82,6 +112,8 @@ def gen_being():
     being = rd.choice(attributes) + " " + rd.choice(beings)
     return being
 
+
+# No longer needed but will leave it here in case
 def gen_power():
         powers = file_open("data/characters/powers.txt")
         actions = file_open("data/characters/actions.txt")
@@ -95,9 +127,8 @@ class Character:
     def __init__(self):
         self.name = gen_name()
         self.gender = rd.choice(["god", "goddess"])
+        self.kind = None
         self.adj = rd.choice(adj)
-        self.kind = rd.choice(nouns)
-        self.power = gen_power()
         self.hates = []
         self.loves = []
         self.children = []
@@ -123,7 +154,7 @@ class Character:
     
 class God(Character): 
     def printGod(self):
-        print(self.name, "the", self.adj, self.gender,  "has the power to", self.power)
+        print(self.name + " the " + self.adj + " " + self.gender + " of the " + self.kind)
 
 class Hero(Character):
     def __init__(self, name, gender, adj):
@@ -142,24 +173,45 @@ class Hero(Character):
         print(self.name + " The mighty hero of " + self.society + " bested " +self.hates + " with help from " + self.loves) 
 
 
+test_gods = ["Sun", "Moon", "Earth", "Ocean"]
 
-class Society:
-    def gen_pantheon(self, gods):
+# We use this to add or create new pantheons based on whatever list we throw at it
+def gen_pantheon(pantheon, gods):
         for i in gods:
             new_god = God()
             new_god.kind = i
-            self.pantheon.append(new_god)
+            pantheon.append(new_god)
+        return pantheon
 
-    def __init__(self):
-        self.name = gen_name()
-        self.home = gen_name()
+class Society:
+    def __init__(self, data = None, creatures = None):
+        self.name = gen_name() 
+        self.climate = data['name']
         self.culture = gen_culture()
-        self.required_gods = ["Sun", "Moon", "Earth", "Ocean"]
-        self.required_holidays = ["sacrifical", "feast", "celebratory"]
-        self.pantheon = gen_pantheon(required_gods)
+        self.required_gods = data['Required_Gods']
+        self.required_holidays = data['Required_Holidays']
+        self.pantheon = []
+        self.creatures = creatures
         self.creation_myth = None
-        self.holidays = None
+
+    def print_pantheon(self):
+        for i in self.pantheon:
+            i.printGod()
+
+    def print_creatures(self):
+        for i in self.creatures:
+            print(i)
     
     def print_society(self):
-        print("The " + self.culture + " " + self.name + " people of " self.home)
-        print("")
+        print("------------------------------------------------------")
+        print("The " + self.culture + " " + self.name + " of the " + self.climate)
+        print("------------------------------------------------------")
+        self.print_pantheon()
+        print("------------------------------------------------------")
+        self.print_creatures()
+        print("------------------------------------------------------")
+        print("\n")
+
+    
+
+    
