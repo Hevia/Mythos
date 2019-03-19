@@ -2,7 +2,7 @@
 A procedural mythology generator written in Python made for world builders.  
 
 
-# How Mythos works
+## How Mythos works
 This is a brief overview of the system.
 
 1.) Generate the world and society based on input files given. This is done by randomly selecting elements to stich together a world and society that inhabits the region.
