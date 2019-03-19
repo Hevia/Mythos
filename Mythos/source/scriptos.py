@@ -19,15 +19,12 @@ def open_json(file_name):
         data = json.load(data_file)
     return data
 
-# Open files for generations
-adj = file_open("data/characters/adjectives.txt")
-nouns = file_open("data/characters/nouns.txt")
-world_data = open_json('data/World_Master.json')
-cultures = open_json('data/cultures.json')
-
-
 # This is the 'master' function we call 
 def gen_society():
+    adj = file_open("data/characters/adjectives.txt")
+    nouns = file_open("data/characters/nouns.txt")
+    world_data = open_json('data/World_Master.json')
+    cultures = open_json('data/cultures.json')
     
     # This is what we will use to populate data for our society
     data = rd.choice(world_data['Ecosystems'])
@@ -80,6 +77,9 @@ class Agent:
         self.religious = religious
         self.ritualistic = ritualistic
 
+    def __str__(self):
+        pass
+
 class Hunters(Agent):
     def __init__(self, hunting = 1, foraging = 1, religious = 1, ritualistic = 1, ability = 0.5):
         super().__init__(hunting, foraging, religious, ritualistic)
@@ -92,6 +92,12 @@ class Society:
         self.climate = data['name']
         self.culture = culture
         self.pantheon = [] 
+
+    def __repr__(self):
+        print("Society(name: {}, climate: {}, culture: {}, pantheon: {})".format(self.name, self.climate, self.culture, self.pantheon))
+
+    def __str__(self):
+        pass
 
     def print_pantheon(self):
         for i in self.pantheon:
