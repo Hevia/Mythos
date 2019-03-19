@@ -1,0 +1,25 @@
+{
+    "Cultures": [
+        {
+            "name": "Farming",
+            "Hunting": 10,
+            "Foraging": 40,
+            "Religious": 20,
+            "Rituals": 30
+        },
+        {
+            "name": "Hunter-Gatherer",
+            "Hunting": 50,
+            "Foraging": 20,
+            "Religious": 15,
+            "Rituals": 20
+        },
+        {
+            "name": "Ritualistic",
+            "Hunting": 30,
+            "Foraging": 30,
+            "Religious": 70,
+            "Rituals": 60
+        }
+    ]
+}

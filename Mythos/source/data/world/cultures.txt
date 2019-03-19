@@ -1,0 +1,5 @@
+farming
+hunter-gatherer
+nomadic
+seafaring
+warrior

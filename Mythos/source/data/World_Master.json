@@ -1,0 +1,34 @@
+{
+    "Ecosystems": [
+        {
+            "name": "Woodlands",
+            "Required_Gods": ["Forest", "Sun", "Moon", "Water", "Thunder"],
+            "Required_Holidays": [],
+            "Fauna": [],
+            "Trees": [],
+            "Herbs": [],
+            "Vegetables": [],
+            "Fruits": []
+        },
+        {
+            "name":"Swamplands",
+            "Required_Gods": ["Gators", "Marsh", "Tides", "Mangroves"],
+            "Required_Holidays": [],
+            "Fauna": [],
+            "Trees": [],
+            "Herbs": [],
+            "Vegetables": [],
+            "Fruits": []
+        },
+        {
+            "name": "Mountains",
+            "Required_Gods":["Snow", "Earthquake", "Sun", "Wind"],
+            "Required_Holidays": [],
+            "Fauna": [],
+            "Trees": [],
+            "Herbs": [],
+            "Vegetables": [],
+            "Fruits": []
+        }
+    ]
+}

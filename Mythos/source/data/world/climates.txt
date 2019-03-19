@@ -1,0 +1,5 @@
+desert
+rainforest
+tropics
+volcanic
+plains
