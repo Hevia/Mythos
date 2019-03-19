@@ -2,6 +2,7 @@ import random as rd
 import json
 from Grammars import *
 import networkx as nx
+import matplotlib.pyplot as plt
 
 # Used to split .txt elements on a new line and append to a list
 def file_open(file_name):
@@ -43,19 +44,32 @@ def gen_name():
     return name
 
 
+# The world is represented using a Graph database which agents navigate
 class World:
-    def __init__(self, world_size = 8, world_elements, mapping = {0:'center'}):
+    def __init__(self, world_elements, mapping = {0:'center'}, world_size = 8):
         self.size = world_size
         self.elements = world_elements
         self.mapping = mapping
-        self.world = None # call a function
-        
-    def create_world(self):
-        world = nx.erdos_renyi_graph(n = self.world_size, p = 0.5)
-
+        self.world = self.create_world() # call a function
+    
+    # We map the "locations" in the world to a dictonary 
+    # We need this dictonary to relabel the graph's nodes later
     def map_world(self):
-        for i in range(len(self.mapping), self.world_size):
-            self.mapping[i] = rd.choice(self.world_elements) + str(i)
+        for i in range(len(self.mapping), self.size):
+            self.mapping[i] = rd.choice(self.elements) + str(i)
+
+    # We use this to init our graph
+    # We also relabel the nodes from numbers to locations
+    def create_world(self):
+        self.map_world()
+        world = nx.erdos_renyi_graph(n = self.size, p = 0.5)
+        world = nx.relabel_nodes(world, self.mapping)
+        return world
+
+    def print_world(self):
+        print(self.world.nodes)
+        nx.draw(self.world)
+        plt.show()
 
 
 
@@ -66,9 +80,14 @@ class Agent:
         self.religious = religious
         self.ritualistic = ritualistic
 
+class Hunters(Agent):
+    def __init__(self, hunting = 1, foraging = 1, religious = 1, ritualistic = 1, ability = 0.5):
+        super().__init__(hunting, foraging, religious, ritualistic)
+        self.ability = ability
+
 # Our Society class
 class Society:
-    def __init__(self, data = None, culture):
+    def __init__(self, data, culture):
         self.name = gen_name() 
         self.climate = data['name']
         self.culture = culture
@@ -115,3 +134,9 @@ class Character:
                 print(" | ", end="")
             print(child.name)
             child.printFamilyTree(depth + 1)
+
+
+# Testing ground
+node_elements = ['animals', 'vegetation', 'water', 'nature']
+graph = World(node_elements)
+graph.print_world()
