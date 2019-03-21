@@ -65,6 +65,8 @@ def gen_society(food_stock, population, delta):
     year = parse_seasons()
 
     # init the world
+    node_elements = ['animals', 'vegetation', 'water', 'nature']
+    world_graph = World(node_elements)
 
     # init the society and the agents
     society = parse_culture(food_stock, population, delta)
