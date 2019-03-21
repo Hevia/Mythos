@@ -1,0 +1,28 @@
+{
+    "Seasons": [
+        {
+            "name": "Spring",
+            "climate": 0.2,
+            "animals": 1,
+            "plants": 1
+        },
+        {
+            "name": "Summer",
+            "climate": 0.7,
+            "animals": 0.8,
+            "plants": 1
+        },
+        {
+            "name": "Fall",
+            "climate": 0.5,
+            "animals": 1,
+            "plants": 0.8
+        },
+        {
+            "name": "Winter",
+            "climate": 1,
+            "animals": 0.3,
+            "plants": 0.3
+        }
+    ]
+}

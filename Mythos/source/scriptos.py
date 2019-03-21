@@ -11,6 +11,8 @@ def file_open(file_name):
     return_list = []
     for i in data:
         return_list.append(i)
+
+    f.close()
     return return_list
 
 # Use this to read our JSON files for general world data
@@ -19,18 +21,55 @@ def open_json(file_name):
         data = json.load(data_file)
     return data
 
-# This is the 'master' function we call 
-def gen_society():
-    adj = file_open("data/characters/adjectives.txt")
-    nouns = file_open("data/characters/nouns.txt")
-    world_data = open_json('data/World_Master.json')
-    cultures = open_json('data/cultures.json')
+
+
+def parse_seasons():
+    year = []
+    season_data = open_json('data/Seasons.json')
+
+    for j in range(0, len(season_data["Seasons"])):
+        year.append(Season(
+            season_data["Seasons"][j]["name"],
+            season_data["Seasons"][j]["climate"],
+            season_data["Seasons"][j]["animals"],        
+            season_data["Seasons"][j]["plants"]
+        ))
     
-    # This is what we will use to populate data for our society
-    data = rd.choice(world_data['Ecosystems'])
-    culture = rd.choice(cultures)
-    new_society = Society(data, culture)
+    return year
+   
+def parse_culture(food_stock, population, delta):
+    cultures = open_json('data/cultures.json')
+    cultures = rd.choice(cultures["Cultures"])
+
+    new_society = Society(cultures["name"], food_stock, population)
+
+    start_agent = Agent(
+        cultures["Hunting"],
+        cultures["Foraging"],
+        cultures["Religious"],
+        cultures["Rituals"],
+        delta
+    )
+
+    new_society.set_agents(start_agent)
+    
     return new_society
+
+    
+
+# This is the 'master' function we call 
+# it calls all other needed for world creation
+def gen_society(food_stock, population, delta):
+    # init the seasons
+    # Myths are generated each seasonal period over the course of a year
+    year = parse_seasons()
+
+    # init the world
+
+    # init the society and the agents
+    society = parse_culture(food_stock, population, delta)
+
+    
 
 
 def gen_name():
@@ -71,30 +110,48 @@ class World:
 
 
 class Agent:
-    def __init__(self, hunting = 1, foraging = 1, religious = 1, ritualistic = 1):
+    def __init__(self, hunting = 1, foraging = 1, religious = 1, ritual = 1, delta = 0.5):
         self.hunting = hunting
         self.foraging = foraging
         self.religious = religious
-        self.ritualistic = ritualistic
+        self.ritual = ritual
+        self.delta = delta
 
     def __str__(self):
         pass
 
 class Hunters(Agent):
-    def __init__(self, hunting = 1, foraging = 1, religious = 1, ritualistic = 1, ability = 0.5):
-        super().__init__(hunting, foraging, religious, ritualistic)
+    def __init__(self, hunting = 1, foraging = 1, 
+    religious = 1, ritual = 1, delta = 0.5, ability = 0.5):
+        super().__init__(hunting, foraging, religious, ritual, delta)
         self.ability = ability
+
+
+class Season:
+    def __init__(self, name, climate = 1, animals = 1, plants = 1):
+        self.name = name
+        self.climate = climate
+        self.animals = animals
+        self.plants = plants
 
 # Our Society class
 class Society:
-    def __init__(self, data, culture):
+    def __init__(self, culture, food_stock, population):
         self.name = gen_name() 
-        self.climate = data['name']
         self.culture = culture
         self.pantheon = [] 
+        self.food_stock = food_stock
+        self.population = population
+        self.agents = []
+
+    def set_agents(self, agents):
+        self.agents.append(agents)
+
+    def decision_sequence(self, agents):
+        pass
 
     def __repr__(self):
-        print("Society(name: {}, climate: {}, culture: {}, pantheon: {})".format(self.name, self.climate, self.culture, self.pantheon))
+        print("Society(name: {},  culture: {}, pantheon: {})".format(self.name, self.culture, self.pantheon))
 
     def __str__(self):
         pass
@@ -112,7 +169,7 @@ class Society:
         print("\n")
 
     
-
+# Mainly used to encapsulate data for storytelling
 class Character:
     def __init__(self):
         self.name = gen_name()
@@ -143,6 +200,14 @@ class Character:
 
 
 # Testing ground
-node_elements = ['animals', 'vegetation', 'water', 'nature']
-graph = World(node_elements)
-graph.print_world()
+# node_elements = ['animals', 'vegetation', 'water', 'nature']
+# graph = World(node_elements)
+# graph.print_world()
+
+
+def main():
+    parse_culture(100, 100, 100)
+
+
+if __name__ == "__main__":
+    main()
