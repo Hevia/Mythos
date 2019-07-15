@@ -1,9 +1,7 @@
 # Mythos
-A procedural mythology generator written in Python made for world builders.  
+A procedural mythology generator written in Python 
 
-- Right now it just generates gods with a range of nonsensical traits 
-- Work has begun on the generating creation myths which will flow into a timeline of the mythology
-- You can provide your own traits/powers/abilites in a .txt that the script will pull from to use as generation parameters
+* Currently the code on the repo is the old original version of Mythos. I made it back when I first learned Python! The current revision is being used for research and will be published once all changes are wrapped up :)
 
 
 
